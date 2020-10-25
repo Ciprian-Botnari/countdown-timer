@@ -1,0 +1,125 @@
+/*  =========================================== WEBKIT ============================================= */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/*  =========================================== BODY ============================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background-color: aquamarine;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  overflow-x: hidden;
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}
+
+.main-area {
+  padding: 20px 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+
+/*  =========================================== TITLE ============================================= */
+.title {
+  display: inline-block;
+  padding: 20px;
+  background: #fff;
+  color: #3792cb;
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}
+
+/*  =========================================== INPUT ============================================= */
+input,
+button,
+textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.input {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.input.input-data {
+  text-align: center;
+  background: #f4f4f4;
+  color: #3792cb;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 3px;
+
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+
+  transition: all .25s ease-in;
+}
+
+.input.input-data:focus {
+  border-color: #3792cb;
+}
+
+
+.input.input-submit {
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+  display: inline-block;
+  background: #f4f4f4;
+  color: #3792cb;
+  border-radius: 3px;
+
+  padding: 10px 25px;
+  font-size: 2rem;
+
+  width: 20%;
+  cursor: pointer;
+
+  transition: all .5s;
+}
+
+.input.input-submit:hover {
+  background: #3792cb;
+  color: #f4f4f4;
+}
+
+/*  =========================================== TIMER ============================================= */
+.timer {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.timer .time {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.timer .time:last-child {
+  margin-right: 0;
+}
+
+.time-title {
+  display: inline-block;
+  font-size: 1.25rem;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #3792cb;
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}

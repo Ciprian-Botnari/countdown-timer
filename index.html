@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+
+  <title>Countdown timer</title>
+</head>
+
+<body>
+
+  <main class="main-area">
+
+    <h1 class="title">Set countdown time</h1>
+
+    <form class="form">
+
+      <div class="timer">
+        <div class="time hours">
+          <label class="time-title" for="hours">Hours</label>
+          <input id="hours" class="input input-data" type="number">
+        </div>
+
+        <div class="time minutes">
+          <label class="time-title" for="minutes">Minutes</label>
+          <input id="minutes" class="input input-data" type="number">
+        </div>
+
+        <div class="time seconds">
+          <label class="time-title" for="seconds">Seconds</label>
+          <input id="seconds" class="input input-data" type="number">
+        </div>
+      </div>
+
+      <input id="submitBtn" class="input input-submit" type="submit" value="Submit">
+    </form>
+
+  </main>
+
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
