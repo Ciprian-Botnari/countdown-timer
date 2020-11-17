@@ -1,4 +1,4 @@
-
+console.log( hello );
 
 const hours     = document.getElementById( 'hours' );
 const minutes   = document.getElementById( 'minutes' );
