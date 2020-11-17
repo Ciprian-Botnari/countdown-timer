@@ -1,0 +1,12 @@
+HOW THE APP SHOULD WORK
+
+1. User types hours / minutes / seconds
+  1.1. User should be able to type any combination of these 
+  (i.g. 1 hour 5 seconds / 3 minutes 10 seconds)
+  1.2. User should have the possibility of filling one of fields and timer should start
+  anyway (i.g. 1 hour / 6 minutes / 23 seconds )
+
+2. Timer starts based on the user's input 
+  2.1 Timer is counting backwards to 0 
+  2.2 If it is a number between 0 and 9 it should show 0 + that number
+  (i.g 5 => 05)
