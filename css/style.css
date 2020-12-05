@@ -28,6 +28,9 @@ body {
 }
 
 .main-area {
+  position: relative;
+  top: -100px;
+
   padding: 20px 0;
   width: 100vw;
   height: 100vh;

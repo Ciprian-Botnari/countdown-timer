@@ -1,22 +1,23 @@
-console.log( hello );
-
+// Getting the ids for hours, minutes, seconds fields 
+// and for startBtn
 const hours     = document.getElementById( 'hours' );
 const minutes   = document.getElementById( 'minutes' );
 const seconds   = document.getElementById( 'seconds' );
+const startBtn  = document.getElementById( 'startBtn' );
 const timer     = [hours, minutes, seconds];
 
-const startBtn = document.getElementById( 'startBtn' );
+// Adding the run timer function when clicking on button
+// startBtn.addEventListener( 'click', runTimer );
 
-startBtn.addEventListener( 'click', runTimer );
-
-
+// Adding for each element of timer 
+// a sanitize function
 for (const elem of timer) 
 {
   elem.addEventListener( 'keydown', sanitizeInput);
-  elem.addEventListener( 'keyup',   thinkLater);
+  elem.addEventListener( 'keydown', checkRegex);
 }
 
-// Original script
+// Removes unwanted characters
 function sanitizeInput(e)
 {
   const invalidChars = ['-', 'e', '+', 'E', '.']; 
@@ -24,22 +25,18 @@ function sanitizeInput(e)
   {
     e.preventDefault();
   }
-  
 }
 
-// This is for keyup event, although
-// it has a delete animation which bothers me
-function thinkLater() {
-  const regex     = /^[0-5]?[0-9]$/g;
-
-  if (Array.isArray(this.value.match(regex)))
+// Checks if input corresponds with regex
+function checkRegex(e) {
+  const regex     = /^[0-5]?[0-9]$/g;  
+  
+  let num1 = e.key;
   {
-    this.value = this.value.match(regex).join();
-  }
-  else 
-  {
-    let arr = Array.from(this.value.toString());
-    this.value = arr[0] + arr[1];
+    let num = num1 + e.key;
+    
+    console.log( e.key );
+    console.log( num );
   }
 }
 
