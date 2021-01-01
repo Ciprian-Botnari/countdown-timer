@@ -1,10 +1,10 @@
 // Getting the ids for hours, minutes, seconds fields 
 // and for startBtn
-const hours     = document.getElementById( 'hours' );
-const minutes   = document.getElementById( 'minutes' );
-const seconds   = document.getElementById( 'seconds' );
-const startBtn  = document.getElementById( 'startBtn' );
-const timer     = [hours, minutes, seconds];
+const hoursEl     = document.getElementById( 'hours' );
+const minutesEl   = document.getElementById( 'minutes' );
+const secondsEl   = document.getElementById( 'seconds' );
+const startBtn    = document.getElementById( 'startBtn' );
+const timer       = [hoursEl, minutesEl, secondsEl];
 
 // Adding the run timer function when clicking on button
 // startBtn.addEventListener( 'click', runTimer );
@@ -13,8 +13,9 @@ const timer     = [hours, minutes, seconds];
 // a sanitize function
 for (const elem of timer) 
 {
+  elem.addEventListener( 'paste', preventPaste);
   elem.addEventListener( 'keydown', sanitizeInput);
-  elem.addEventListener( 'keydown', checkRegex);
+  elem.addEventListener( 'keyup', checkRegex);
 }
 
 // Removes unwanted characters
@@ -25,19 +26,74 @@ function sanitizeInput(e)
   {
     e.preventDefault();
   }
+  
+  let inputNum = e.target.value;
+
+  if(e.target.id === 'hours')
+  {
+    limitOfChars(e, inputNum, 3);
+    return;
+  }
+
+
+  if(inputNum.length === 0)
+  {
+    let numbers = ['6', '7', '8', '9'];
+    if( numbers.includes(e.key) ) 
+    {
+      e.target.value = '0' + inputNum; 
+    }
+  }
+
+  limitOfChars(e, inputNum, 2);
 }
 
 // Checks if input corresponds with regex
 function checkRegex(e) {
-  const regex     = /^[0-5]?[0-9]$/g;  
+  const regex = /^[0-5]?[0-9]$/g;  
+
+  let value = parseInt(e.target.value);
+  let firstDig = value[0];
+
+  // if(e.target.id === 'hours')
+  // {
+  //   if(value.length > 3) 
+  //   {
+  //     e.target.value = value.slice(0, 3);
+  //   }
+  //   return;
+  // }
+
+
   
-  let num1 = e.key;
-  {
-    let num = num1 + e.key;
-    
-    console.log( e.key );
-    console.log( num );
-  }
+  // if(value === 0)
+  // {
+  //   e.target.value = '';
+  // }
+
+  // if(e.target.value.length === 2)
+  // {
+  //   if( e.keyCode === 8 || e.keyCode === 46 ) 
+  //   {
+  //     return; 
+  //   }
+  //   e.preventDefault();
+  // }
+
+  // if (value.length === 2 && firstDig === 0)
+  // {
+  //   e.target.value = '';
+  // }
+
+  // if(firstDig > 5) 
+  // {
+  //   e.target.value = '0' + value;
+  // } 
+
+  // if(value.length > 2)
+  // {
+  //   e.target.value = value.slice(0, 2);
+  // }
 }
 
 function runTimer(e) 
@@ -77,4 +133,26 @@ function runTimer(e)
     }
   }, 1000);
 
+}
+
+// Prevent user from pasting 
+function preventPaste(e)
+{
+  e.preventDefault();
+}
+
+// How many characters in an input field
+// NOTE: for keydown event use (number - 1)
+function limitOfChars(event, elem, number)
+{
+  let finalNumber = number;
+  if (event.type === 'keydown' || event.type === 'keypress') { finalNumber = number - 1; }
+  if(elem.length > finalNumber)
+  {
+    if( event.keyCode === 8 || event.keyCode === 46 ) 
+    {
+      return; 
+    }
+    event.preventDefault();
+  }
 }
