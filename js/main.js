@@ -4,101 +4,27 @@ const hoursEl     = document.getElementById( 'hours' );
 const minutesEl   = document.getElementById( 'minutes' );
 const secondsEl   = document.getElementById( 'seconds' );
 const startBtn    = document.getElementById( 'startBtn' );
-const timer       = [hoursEl, minutesEl, secondsEl];
+const arr         = [hoursEl, minutesEl, secondsEl];
+
+// Adding for each element of timer functions
+for (const elem of arr) 
+{
+  elem.addEventListener( 'paste',     preventDefault );
+  elem.addEventListener( 'dragstart', preventDefault );
+  elem.addEventListener( 'select',    clearInput     );
+  elem.addEventListener( 'keydown',   sanitizeInput  );
+  elem.addEventListener( 'keyup',     checkRegex     );
+}
 
 // Adding the run timer function when clicking on button
-// startBtn.addEventListener( 'click', runTimer );
+startBtn.addEventListener( 'click', runTimer );
 
-// Adding for each element of timer 
-// a sanitize function
-for (const elem of timer) 
+function runTimer() 
 {
-  elem.addEventListener( 'paste', preventPaste);
-  elem.addEventListener( 'keydown', sanitizeInput);
-  elem.addEventListener( 'keyup', checkRegex);
-}
-
-// Removes unwanted characters
-function sanitizeInput(e)
-{
-  const invalidChars = ['-', 'e', '+', 'E', '.']; 
-  if ( invalidChars.includes(e.key) )
+  if(!isReady())
   {
-    e.preventDefault();
+    return false;
   }
-  
-  let inputNum = e.target.value;
-
-  if(e.target.id === 'hours')
-  {
-    limitOfChars(e, inputNum, 3);
-    return;
-  }
-
-
-  if(inputNum.length === 0)
-  {
-    let numbers = ['6', '7', '8', '9'];
-    if( numbers.includes(e.key) ) 
-    {
-      e.target.value = '0' + inputNum; 
-    }
-  }
-
-  limitOfChars(e, inputNum, 2);
-}
-
-// Checks if input corresponds with regex
-function checkRegex(e) {
-  const regex = /^[0-5]?[0-9]$/g;  
-
-  let value = parseInt(e.target.value);
-  let firstDig = value[0];
-
-  // if(e.target.id === 'hours')
-  // {
-  //   if(value.length > 3) 
-  //   {
-  //     e.target.value = value.slice(0, 3);
-  //   }
-  //   return;
-  // }
-
-
-  
-  // if(value === 0)
-  // {
-  //   e.target.value = '';
-  // }
-
-  // if(e.target.value.length === 2)
-  // {
-  //   if( e.keyCode === 8 || e.keyCode === 46 ) 
-  //   {
-  //     return; 
-  //   }
-  //   e.preventDefault();
-  // }
-
-  // if (value.length === 2 && firstDig === 0)
-  // {
-  //   e.target.value = '';
-  // }
-
-  // if(firstDig > 5) 
-  // {
-  //   e.target.value = '0' + value;
-  // } 
-
-  // if(value.length > 2)
-  // {
-  //   e.target.value = value.slice(0, 2);
-  // }
-}
-
-function runTimer(e) 
-{
-  e.preventDefault();
 
   let t             = new Date();
   let countdownTime = new Date();
@@ -132,27 +58,84 @@ function runTimer(e)
       seconds.value = '';
     }
   }, 1000);
-
 }
 
-// Prevent user from pasting 
-function preventPaste(e)
+// Removes unwanted characters
+function sanitizeInput(e)
 {
-  e.preventDefault();
+  const invalidChars = ['-', 'e', '+', 'E', '.']; 
+  if ( invalidChars.includes(e.key) )
+  {
+    e.preventDefault();
+  }
+  
+  let inputNum = e.target.value;
+  if(e.target.id === 'hours')
+  {
+    limitOfChars(e, inputNum, 3); 
+    return;
+  }
+
+  let numbers = ['6', '7', '8', '9'];
+  if(inputNum.length === 0)
+  {
+    if( numbers.includes(e.key) ) 
+    {
+      e.target.value = '0' + inputNum; 
+    }
+  }
+
+  limitOfChars(e, inputNum, 2);
+}
+
+// Checks if input corresponds with regex
+function checkRegex(e) {
+  const regex = /^[0-5]?[0-9]$/g;  
+  const numInput = e.target.value;
+
+  if(e.target.id === 'hours') { return; }
+  
+  if(!regex.test(numInput))
+  {
+    clearInput(e);
+  }
 }
 
 // How many characters in an input field
 // NOTE: for keydown event use (number - 1)
 function limitOfChars(event, elem, number)
 {
-  let finalNumber = number;
-  if (event.type === 'keydown' || event.type === 'keypress') { finalNumber = number - 1; }
-  if(elem.length > finalNumber)
+  if (event.type === 'keydown' || event.type === 'keypress') { number -= 1; }
+  if(elem.length > number)
   {
-    if( event.keyCode === 8 || event.keyCode === 46 ) 
+    if( event.keyCode === 8 || event.keyCode === 46 || // backspace and delete
+        event.keyCode === 37 || event.keyCode === 39 ) // arrow keys (left and right)
     {
       return; 
     }
     event.preventDefault();
   }
+}
+
+// Check if it's ready to start
+function isReady()
+{
+  if(hoursEl.value === '' && minutesEl.value === '' && secondsEl.value === '')
+  {
+    return false;
+  }
+
+  return true;
+}
+
+// Clear input
+function clearInput(e)
+{
+  e.target.value = '';
+}
+
+// Prevent user from pasting 
+function preventDefault(e)
+{
+  e.preventDefault();
 }
