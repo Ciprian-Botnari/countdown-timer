@@ -92,6 +92,7 @@ textarea {
   color: #3792cb;
   border-radius: 3px;
 
+  margin-right: 1rem;
   padding: 10px 25px;
   font-size: 2rem;
 
@@ -99,6 +100,10 @@ textarea {
   cursor: pointer;
 
   transition: all .5s;
+}
+
+.input.input-submit:last-child {
+  margin-right: 0;
 }
 
 .input.input-submit:hover {
